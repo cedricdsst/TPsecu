@@ -12,18 +12,26 @@ function login($username, $password)
 {
     global $pdo;
 
-    // Intentionally vulnerable version
-    // no prepare request, using variable in sql request
-    $query = "SELECT id, username, admin, password FROM users WHERE username = '$username' AND password = '$password'";
-    $result = $pdo->query($query);
-    $user = $result->fetch();
+    // Version vulnérable aux injections SQL
+    // La requête inclut la condition OR pour permettre le bypass
+    $query = "SELECT id, username, admin, password FROM users WHERE username = '$username'";
 
-    if ($user) {
-        session_regenerate_id(true);
-        $_SESSION['user_id'] = (int)$user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['is_admin'] = (int)$user['admin'];
-        return true;
+    echo "Requête : " . $query . "<br>";
+    try {
+        $result = $pdo->query($query);
+        $user = $result->fetch();
+
+        // Si on trouve un utilisateur, on crée la session
+        if ($user) {
+            session_regenerate_id(true);
+            $_SESSION['user_id'] = (int)$user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['is_admin'] = (int)$user['admin'];
+            return true;
+        }
+    } catch (PDOException $e) {
+        // Log de l'erreur pour debug
+        echo "Erreur SQL : " . $e->getMessage() . "<br>";
     }
 
     return false;
@@ -37,20 +45,17 @@ function signup($username, $password)
 {
     global $pdo;
 
-    // Version vulnérable plus simple
-    $query = "SELECT id FROM users WHERE username = '$username'";
-    $result = $pdo->query($query);
-    if ($result->fetch()) {
-        return false;
+    // Check if the username already exists
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    if ($stmt->fetch()) {
+        return false; // Username already exists
     }
 
+    // Hash the password and insert the new user
+    $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Concaténation directe des valeurs
-    $query = "INSERT INTO users SET username = '$username', 
-                                  password = '$hashed_password', 
-                                  admin = 0";
-    return $pdo->query($query);
+    return $stmt->execute([$username, $hashed_password]);
 }
 
 // Function to log out the user
