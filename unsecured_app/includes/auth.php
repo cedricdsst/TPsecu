@@ -37,16 +37,19 @@ function signup($username, $password)
 {
     global $pdo;
 
-    // Intentionally vulnerable version
-
-    $query = "SELECT id FROM users WHERE username = $username";
+    // Version vulnérable plus simple
+    $query = "SELECT id FROM users WHERE username = '$username'";
     $result = $pdo->query($query);
     if ($result->fetch()) {
-        return false; // Username already exists
+        return false;
     }
 
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO users (username, password) VALUES ($username, '$password')";
+    // Concaténation directe des valeurs
+    $query = "INSERT INTO users SET username = '$username', 
+                                  password = '$hashed_password', 
+                                  admin = 0";
     return $pdo->query($query);
 }
 
