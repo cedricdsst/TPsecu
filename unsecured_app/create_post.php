@@ -17,9 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $max_size = 5 * 1024 * 1024; // 5MB
 
         // Validate file type and size
-        if (in_array($_FILES['image']['type'], $allowed_types) && 
-            $_FILES['image']['size'] <= $max_size) {
-            
+        if (
+            in_array($_FILES['image']['type'], $allowed_types) &&
+            $_FILES['image']['size'] <= $max_size
+        ) {
+
             // Create uploads directory if it doesn't exist
             $upload_dir = 'uploads/';
             if (!is_dir($upload_dir)) {
