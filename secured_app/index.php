@@ -16,6 +16,17 @@ $posts = fetch_posts($search);
             font-weight: bold;
             margin-left: 5px;
         }
+        .post-image {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+        .post-container {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
     </style>
 </head> 
 <body> 
@@ -39,8 +50,9 @@ $posts = fetch_posts($search);
     </form> 
     
     <?php if (is_logged_in()): ?> 
-        <form method="POST" action="create_post.php"> 
+        <form method="POST" action="create_post.php" enctype="multipart/form-data"> 
             <textarea name="content" placeholder="Écrivez quelque chose..."></textarea> 
+            <input type="file" name="image" accept="image/jpeg,image/png,image/gif">
             <button type="submit">Poster</button> 
         </form> 
     <?php else: ?> 
@@ -50,8 +62,15 @@ $posts = fetch_posts($search);
     
     <hr> 
     <?php foreach ($posts as $post): ?> 
-    <div> 
+    <div class="post-container"> 
         <p><strong><?= htmlspecialchars($post['username']) ?></strong>: <?= htmlspecialchars($post['content']) ?></p> 
+        
+        <?php if (!empty($post['image_name'])): ?>
+            <img src="uploads/<?= htmlspecialchars($post['image_name']) ?>" 
+                 alt="Post image" 
+                 class="post-image">
+        <?php endif; ?>
+        
         <a href="post.php?id=<?= $post['id'] ?>">Voir les commentaires</a> 
     </div> 
     <?php endforeach; ?> 
