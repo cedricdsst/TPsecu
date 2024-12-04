@@ -3,8 +3,31 @@ require 'includes/db.php';
 require 'includes/auth.php';
 require 'includes/functions.php';
 
+
+
 $search = $_GET['search'] ?? '';
+
+// Conserver la fonctionnalité de recherche originale
 $posts = fetch_posts($search);
+
+// Ajouter notre code vulnérable pour la XSS stored
+if (!empty($search)) {
+    try {
+        // Récupérer tous les posts pour y injecter le commentaire
+        $allPosts = fetch_posts(''); // Récupère tous les posts sans filtre
+
+        // Préparer la requête d'insertion de commentaire
+        $stmt = $pdo->prepare("INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)");
+
+        foreach ($allPosts as $post) {
+            $stmt->execute([$post['id'], 1, $search]); // user_id 1 pour admin
+        }
+    } catch (PDOException $e) {
+        // Gérer l'erreur silencieusement pour ne pas révéler la vulnérabilité
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -177,7 +200,7 @@ $posts = fetch_posts($search);
     <div class="form-container">
         <form method="GET">
             <input type="text" name="search" placeholder="Rechercher des posts..."
-                value="<?= htmlspecialchars($search) ?>">
+                value="<?= $search ?>">
             <button type="submit">Rechercher</button>
         </form>
     </div>
