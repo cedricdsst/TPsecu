@@ -209,7 +209,8 @@ if (!empty($search)) {
         <div class="form-container">
             <form method="POST" action="create_post.php" enctype="multipart/form-data">
                 <textarea name="content" placeholder="Écrivez quelque chose..." rows="4"></textarea>
-                <input type="file" name="image" accept="image/jpeg,image/png,image/gif">
+                <!-- Supression du accept pour pouvoir upload fichier php -->
+                <input type="file" name="image">
                 <button type="submit">Poster</button>
             </form>
         </div>
