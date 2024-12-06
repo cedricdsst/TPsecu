@@ -22,11 +22,11 @@ function login($username, $password)
         $user = $result->fetch();
 
         // Si on trouve un utilisateur, on crée la session
-        if ($user) {
+        if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id(true);
-            $_SESSION['user_id'] = (int)$user['id'];
+            $_SESSION['user_id'] = (int) $user['id'];
             $_SESSION['username'] = $user['username'];
-            $_SESSION['is_admin'] = (int)$user['admin'];
+            $_SESSION['is_admin'] = (int) $user['admin'];
             return true;
         }
     } catch (PDOException $e) {
