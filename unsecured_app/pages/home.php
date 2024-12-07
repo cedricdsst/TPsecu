@@ -232,10 +232,10 @@ if (!empty($search)) {
 
     <?php foreach ($posts as $post): ?>
         <div class="post-container">
-            <p><strong><?= htmlspecialchars($post['username']) ?></strong> : <?= htmlspecialchars($post['content']) ?></p>
+            <p><strong><?= ($post['username']) ?></strong> : <?= ($post['content']) ?></p>
 
             <?php if (!empty($post['image_name'])): ?>
-                <img src="uploads/<?= htmlspecialchars($post['image_name']) ?>" alt="Image du post" class="post-image">
+                <img src="uploads/<?= ($post['image_name']) ?>" alt="Image du post" class="post-image">
             <?php endif; ?>
 
             <a href="post.php?id=<?= $post['id'] ?>">Voir les commentaires</a>
