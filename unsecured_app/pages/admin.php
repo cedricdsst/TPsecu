@@ -2,11 +2,16 @@
 require 'includes/db.php';
 require 'includes/auth.php';
 
-if (!$_SESSION['is_admin']) {
-    header('Location: index.php');
-    exit;
-}
+// Vérifie si le fichier est accédé directement ou inclus
+$isDirectAccess = (basename($_SERVER['SCRIPT_NAME']) === 'admin.php');
 
+// N'applique la vérification que si accédé directement
+if ($isDirectAccess) {
+    if (!is_logged_in() || !$_SESSION['is_admin']) {
+        header('Location: index.php');
+        exit;
+    }
+}
 // Fetch all users and posts
 $users = $pdo->query("SELECT id, username, admin FROM users")->fetchAll(PDO::FETCH_ASSOC);
 $posts = $pdo->query("SELECT posts.id, posts.content, users.username FROM posts JOIN users ON posts.user_id = users.id")->fetchAll(PDO::FETCH_ASSOC);

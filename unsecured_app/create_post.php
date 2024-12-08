@@ -12,17 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image_name = null;
 
     // Handle image upload
-    if (!empty($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    /*if (!empty($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         $max_size = 5 * 1024 * 1024; // 5MB
 
         // Validate file type and size
-        if (in_array($_FILES['image']['type'], $allowed_types) && 
-            $_FILES['image']['size'] <= $max_size) {
-            
-            // Use the shared uploads directory
-            $upload_dir = '/var/www/html/uploads/';
+        if (
+            in_array($_FILES['image']['type'], $allowed_types) &&
+            $_FILES['image']['size'] <= $max_size
+        ) {
 
+            // Create uploads directory if it doesn't exist
+            $upload_dir = 'uploads/';
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0755, true); // Create shared directory if it doesn't exist
             }
@@ -41,6 +42,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Invalid file type or size
             header('Location: index.php?error=invalid_file');
+            exit;
+        }
+    }*/
+
+    if (!empty($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Pas de vérification des types et tailles des fichiers
+        $upload_dir = 'uploads/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true); // Crée le dossier s'il n'existe pas
+        }
+
+        // Utilise le nom original sans vérification
+        $image_name = basename($_FILES['image']['name']);
+        $upload_path = $upload_dir . $image_name;
+
+        // Déplace le fichier sans contrôle
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+            // Erreur si le déplacement échoue
+            header('Location: index.php?error=upload_failed');
             exit;
         }
     }

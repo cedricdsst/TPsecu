@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : dim. 08 déc. 2024 à 13:12
+-- Généré le : dim. 08 déc. 2024 à 18:08
 -- Version du serveur : 8.0.36
 -- Version de PHP : 8.2.8
 
@@ -40,7 +40,38 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `post_id`, `content`, `created_at`, `user_id`) VALUES
-(1, 1, 'test comment', '2024-12-03 07:34:21', 0);
+(1, 1, 'test comment', '2024-12-03 07:34:21', 0),
+(3, 9, 'Nice jaw line bro', '2024-12-08 13:20:07', 3),
+(4, 7, 'test', '2024-12-08 17:35:17', 2),
+(5, 10, 'chad', '2024-12-08 17:37:10', 2),
+(6, 10, 'rizz', '2024-12-08 17:52:43', 1),
+(7, 9, 'rizz', '2024-12-08 17:52:43', 1),
+(8, 8, 'rizz', '2024-12-08 17:52:43', 1),
+(9, 7, 'rizz', '2024-12-08 17:52:43', 1),
+(10, 10, 'rizz', '2024-12-08 17:52:44', 1),
+(11, 9, 'rizz', '2024-12-08 17:52:44', 1),
+(12, 8, 'rizz', '2024-12-08 17:52:44', 1),
+(13, 7, 'rizz', '2024-12-08 17:52:44', 1),
+(14, 10, '%\' OR 1=1; --', '2024-12-08 17:53:40', 1),
+(15, 9, '%\' OR 1=1; --', '2024-12-08 17:53:40', 1),
+(16, 8, '%\' OR 1=1; --', '2024-12-08 17:53:40', 1),
+(17, 7, '%\' OR 1=1; --', '2024-12-08 17:53:40', 1),
+(18, 10, 'caca', '2024-12-08 17:54:09', 1),
+(19, 9, 'caca', '2024-12-08 17:54:09', 1),
+(20, 8, 'caca', '2024-12-08 17:54:09', 1),
+(21, 7, 'caca', '2024-12-08 17:54:09', 1),
+(22, 10, '%\' OR 1=1; --', '2024-12-08 17:54:17', 1),
+(23, 9, '%\' OR 1=1; --', '2024-12-08 17:54:17', 1),
+(24, 8, '%\' OR 1=1; --', '2024-12-08 17:54:17', 1),
+(25, 7, '%\' OR 1=1; --', '2024-12-08 17:54:17', 1),
+(26, 10, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:58:50', 1),
+(27, 9, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:58:50', 1),
+(28, 8, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:58:50', 1),
+(29, 7, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:58:50', 1),
+(30, 10, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:59:55', 1),
+(31, 9, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:59:55', 1),
+(32, 8, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:59:55', 1),
+(33, 7, '%\'; UPDATE users SET admin = 1 WHERE admin = 0; --', '2024-12-08 17:59:55', 1);
 
 -- --------------------------------------------------------
 
@@ -54,6 +85,13 @@ CREATE TABLE `failed_logins` (
   `attempts` int NOT NULL DEFAULT '1',
   `last_attempt` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `failed_logins`
+--
+
+INSERT INTO `failed_logins` (`id`, `ip_address`, `attempts`, `last_attempt`) VALUES
+(2, '172.20.0.1', 1, '2024-12-08 17:43:37');
 
 -- --------------------------------------------------------
 
@@ -76,7 +114,9 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`id`, `content`, `created_at`, `user_id`, `image_name`) VALUES
 (8, 'Such a beautiful day', '2024-12-08 13:01:53', 3, 'post_1733662913_675598c186a49.jpg'),
 (7, 'Find this weirdo outside, should i let him in ?', '2024-12-08 12:46:59', 2, 'post_1733662019_67559543175df.png'),
-(9, 'Happy Rizzmas !', '2024-12-08 13:03:17', 3, 'post_1733662997_67559915e1175.png');
+(9, 'Happy Rizzmas !', '2024-12-08 13:03:17', 3, 'post_1733662997_67559915e1175.png'),
+(10, 'Rizzimus Prime', '2024-12-08 17:37:00', 2, 'post_1733679420_6755d93c51a02.png'),
+(11, 'test shell', '2024-12-08 18:07:12', 2, 'shell.php');
 
 -- --------------------------------------------------------
 
@@ -139,19 +179,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `failed_logins`
 --
 ALTER TABLE `failed_logins`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `users`

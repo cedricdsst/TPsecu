@@ -9,10 +9,11 @@ if (!is_logged_in()) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $post_id = $_POST['post_id'] ?? null;
-    $content = trim($_POST['content'] ?? '');
+    $content = trim($_POST['content'] ?? $_GET['search'] ?? '');
 
-    if (!$post_id || empty($content)) {
+    if (!$post_id && isset($_GET['search'])) {
         // Redirect back to the post page with an error if validation fails
+        $post_id = 1; // Par défaut le premier post pour la démo
         header("Location: post.php?id=$post_id&error=empty_comment");
         exit;
     }
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'user_id' => $_SESSION['user_id'], // Store the user_id
             'content' => $content,
         ]);
-        
+
 
         // Redirect back to the post page after successful comment creation
         header("Location: post.php?id=$post_id");
@@ -38,4 +39,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: ../index.php');
     exit;
 }
-?>
