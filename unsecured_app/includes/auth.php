@@ -5,13 +5,13 @@ if (!defined('AUTH_INCLUDED')) {
 
     session_start();
 
-    // Check if the user is logged in
+    
     function is_logged_in()
     {
         return isset($_SESSION['user_id']);
     }
 
-    // Function to log in the user
+  
     function login($username, $password)
     {
         global $pdo;
@@ -23,7 +23,7 @@ if (!defined('AUTH_INCLUDED')) {
             $result = $pdo->query($query);
             $user = $result->fetch();
 
-            // Si on trouve un utilisateur, on crée la session
+            
             if ($user && password_verify($password, $user['password'])) {
                 session_regenerate_id(true);
                 $_SESSION['user_id'] = (int) $user['id'];
@@ -32,7 +32,7 @@ if (!defined('AUTH_INCLUDED')) {
                 return true;
             }
         } catch (PDOException $e) {
-            // Log de l'erreur pour debug
+           
             echo "Erreur SQL : " . $e->getMessage() . "<br>";
         }
 
