@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require 'includes/db.php'; 
 require 'includes/auth.php'; 
 require 'includes/functions.php'; 
@@ -67,8 +68,8 @@ $posts = fetch_posts($search);
         
         <?php if (!empty($post['image_name'])): ?>
             <img src="uploads/<?= htmlspecialchars($post['image_name']) ?>" 
-                 alt="Post image" 
-                 class="post-image">
+     alt="Post image" 
+     class="post-image">
         <?php endif; ?>
         
         <a href="post.php?id=<?= $post['id'] ?>">Voir les commentaires</a> 

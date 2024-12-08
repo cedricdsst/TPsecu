@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : mar. 03 déc. 2024 à 10:12
--- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
+-- Hôte : db
+-- Généré le : dim. 08 déc. 2024 à 13:12
+-- Version du serveur : 8.0.36
+-- Version de PHP : 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `tpsecu`
+-- Base de données : `projet`
 --
 
 -- --------------------------------------------------------
@@ -27,25 +27,20 @@ SET time_zone = "+00:00";
 -- Structure de la table `comments`
 --
 
-DROP TABLE IF EXISTS `comments`;
-CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `comments` (
+  `id` int NOT NULL,
   `post_id` int NOT NULL,
   `content` text NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `post_id` (`post_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+  `user_id` int NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `comments`
 --
 
 INSERT INTO `comments` (`id`, `post_id`, `content`, `created_at`, `user_id`) VALUES
-(1, 1, 'test comment', '2024-12-03 07:34:21', 0),
-(2, 2, '1er com', '2024-12-03 07:48:55', 1);
+(1, 1, 'test comment', '2024-12-03 07:34:21', 0);
 
 -- --------------------------------------------------------
 
@@ -53,13 +48,11 @@ INSERT INTO `comments` (`id`, `post_id`, `content`, `created_at`, `user_id`) VAL
 -- Structure de la table `failed_logins`
 --
 
-DROP TABLE IF EXISTS `failed_logins`;
-CREATE TABLE IF NOT EXISTS `failed_logins` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `failed_logins` (
+  `id` int NOT NULL,
   `ip_address` varchar(45) NOT NULL,
   `attempts` int NOT NULL DEFAULT '1',
-  `last_attempt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  `last_attempt` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -68,25 +61,22 @@ CREATE TABLE IF NOT EXISTS `failed_logins` (
 -- Structure de la table `posts`
 --
 
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `posts` (
+  `id` int NOT NULL,
   `content` text NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int NOT NULL,
-  `image_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+  `image_name` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `posts`
 --
 
 INSERT INTO `posts` (`id`, `content`, `created_at`, `user_id`, `image_name`) VALUES
-(1, 'post Test', '2024-12-03 07:32:19', 0, NULL),
-(2, 'test post', '2024-12-03 07:48:31', 1, NULL),
-(3, 'postphoto', '2024-12-03 09:54:20', 2, 'post_1733219660_674ed54c6064f.png');
+(8, 'Such a beautiful day', '2024-12-08 13:01:53', 3, 'post_1733662913_675598c186a49.jpg'),
+(7, 'Find this weirdo outside, should i let him in ?', '2024-12-08 12:46:59', 2, 'post_1733662019_67559543175df.png'),
+(9, 'Happy Rizzmas !', '2024-12-08 13:03:17', 3, 'post_1733662997_67559915e1175.png');
 
 -- --------------------------------------------------------
 
@@ -94,23 +84,80 @@ INSERT INTO `posts` (`id`, `content`, `created_at`, `user_id`, `image_name`) VAL
 -- Structure de la table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+  `admin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `admin`) VALUES
-(1, 'test', '$2y$10$bcvzhknocglYfRc6WUp9Yu.gf4BbSBx1wKMVjhnnyG/beeZPIVHnG', 0),
+(3, 'user1', '$2y$10$GeP9z51jaGRR85.zbSmCiuIkBc7V8ezhdTNtj6XmxZa8c6H08tuMO', 0),
 (2, 'admin', '$2y$10$oeX0i9eyvsP8gcLJ5SgANudXnYOV5mKKzLtpKdKmgcfvWd1F9wld.', 1);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Index pour la table `failed_logins`
+--
+ALTER TABLE `failed_logins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `failed_logins`
+--
+ALTER TABLE `failed_logins`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

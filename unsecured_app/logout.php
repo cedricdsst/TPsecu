@@ -1,9 +1,18 @@
 <?php
+// Include authentication functions
 require 'includes/auth.php';
 
-// Clear session and redirect to homepage
-session_start();
+// Check if a session is active before starting it
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Clear all session variables
+$_SESSION = [];
+
+// Destroy the session
 session_destroy();
+
+// Redirect to the homepage
 header('Location: index.php');
 exit;
-?>

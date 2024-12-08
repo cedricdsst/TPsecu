@@ -20,10 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (in_array($_FILES['image']['type'], $allowed_types) && 
             $_FILES['image']['size'] <= $max_size) {
             
-            // Create uploads directory if it doesn't exist
-            $upload_dir = 'uploads/';
+            // Use the shared uploads directory
+            $upload_dir = '/var/www/html/uploads/';
+
             if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0755, true);
+                mkdir($upload_dir, 0755, true); // Create shared directory if it doesn't exist
             }
 
             // Generate unique filename with timestamp

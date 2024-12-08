@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Start the session at the very top
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if the user is logged in
 function is_logged_in() {
@@ -24,6 +27,10 @@ function login($username, $password) {
 
     // Verify password
     if ($user && password_verify($password, $user['password'])) {
+        // Start or regenerate session ID securely
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         session_regenerate_id(true);
 
         // Explicitly cast admin to integer
@@ -64,11 +71,22 @@ function signup($username, $password) {
 
 // Function to log out the user
 function logout() {
-    session_start();
+    // Start session only if it is not already active
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Destroy the session
     session_destroy();
+
+    // Clear all session variables
+    $_SESSION = [];
+
+    // Redirect to the login page
     header('Location: index.php');
     exit;
 }
+
 
 // Record failed login attempts in the database
 function record_failed_attempt($ip_address) {

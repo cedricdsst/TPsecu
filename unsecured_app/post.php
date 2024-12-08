@@ -19,9 +19,9 @@ if (!$post) {
 <body>
     <h1><?= htmlspecialchars($post['content']) ?></h1>
     <?php if (!empty($post['image_name'])): ?>
-            <img src="uploads/<?= htmlspecialchars($post['image_name']) ?>" 
-                 alt="Post image" 
-                 class="post-image">
+        <img src="uploads/<?= htmlspecialchars($post['image_name']) ?>" 
+     alt="Post image" 
+     class="post-image">
         <?php endif; ?>
     <hr>
     <?php foreach ($comments as $comment): ?>
