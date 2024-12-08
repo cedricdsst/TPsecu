@@ -21,12 +21,13 @@ if (!$post) {
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #fdf6e3;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            color: #5d4037;
         }
 
         .container {
@@ -41,8 +42,12 @@ if (!$post) {
         }
 
         h1 {
-            color: #007BFF;
+            color: #5d4037;
             margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #5d4037;
         }
 
         .post-image {
@@ -64,6 +69,7 @@ if (!$post) {
 
         .comment p {
             margin: 5px 0;
+            color: #5d4037;
         }
 
         .comment strong {
@@ -83,20 +89,25 @@ if (!$post) {
         }
 
         button {
-            background-color: #007BFF;
+            background: linear-gradient(135deg, #c17817, #8d4004);
             color: white;
             padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             font-size: 1em;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-top: 10px;
-            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(193, 120, 23, 0.2);
+            background: linear-gradient(135deg, #d68b1c, #a54d05);
         }
 
         .disabled {
@@ -118,6 +129,10 @@ if (!$post) {
             height: 1px;
             background: #ddd;
             margin: 20px 0;
+        }
+
+        strong {
+            color: #5d4037!important;
         }
     </style>
 </head>
