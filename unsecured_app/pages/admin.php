@@ -76,7 +76,8 @@ function delete_post($post_id)
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #fdf6e3;
+            color: #5d4037;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -85,7 +86,7 @@ function delete_post($post_id)
 
         h1,
         h2 {
-            color: #007BFF;
+            color: #5d4037;
         }
 
         .container {
@@ -113,8 +114,20 @@ function delete_post($post_id)
         }
 
         th {
-            background-color: #007BFF;
+            background-color: #5d4037;
             color: white;
+        }
+
+        a {
+            color: #c17817;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #5d4037;
+            transform: translateY(-2px);
         }
 
         tr:hover {

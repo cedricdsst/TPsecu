@@ -23,8 +23,8 @@ $isAdmin = $_SESSION['is_admin'] ?? false;
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
+            background-color: #fdf6e3;
+            color: #5d4037;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,13 +60,15 @@ $isAdmin = $_SESSION['is_admin'] ?? false;
         }
 
         a {
-            color: #007BFF;
+            color: #c17817;
             text-decoration: none;
             font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         a:hover {
-            text-decoration: underline;
+            color: #5d4037;
+            transform: translateY(-2px);
         }
     </style>
 </head>
