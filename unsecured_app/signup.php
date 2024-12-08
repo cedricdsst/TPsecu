@@ -33,12 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #fdf6e3;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: #5d4037;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
@@ -53,17 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         h1 {
-            color: #007BFF;
+            color: #5d4037;
             margin-bottom: 20px;
         }
 
         .error {
             color: #dc3545;
-            margin-bottom: 15px;
-        }
-
-        .success {
-            color: #28a745;
             margin-bottom: 15px;
         }
 
@@ -76,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 5px;
             font-size: 1em;
             box-sizing: border-box;
+            /* Evite les débordements */
         }
 
         input[type="text"]:focus,
@@ -85,33 +84,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         button {
-            background-color: #007BFF;
+            background: linear-gradient(135deg, #c17817, #8d4004);
             color: white;
             padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             font-size: 1em;
-            transition: background-color 0.3s;
-            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(193, 120, 23, 0.2);
+            background: linear-gradient(135deg, #d68b1c, #a54d05);
         }
 
         a {
-            color: #007BFF;
+            color: #c17817;
             text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         a:hover {
-            text-decoration: underline;
+            color: #ffe0b2;
+            transform: translateY(-2px);
         }
 
         p {
             margin-top: 15px;
+            color: #5d4037;
         }
     </style>
 </head>
