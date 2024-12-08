@@ -198,6 +198,18 @@ $posts = fetch_posts($search);
             width: 100%;
         }
 
+        a {
+            color: #c17817;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #5d4037;
+            transform: translateY(-2px);
+        }
+
         /* Media Queries */
         @media (max-width: 768px) {
             .posts-grid {
