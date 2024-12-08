@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost:8889';
+$host = '127.0.0.1';
 $db = 'tpsecu';
 $user = 'root';
-$password = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password);
